@@ -1,0 +1,92 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  text-decoration: none;
+  color: black; }
+
+.navbar__container {
+  background: skyblue;
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  top: 0; }
+
+.navbar {
+  height: 60px; }
+  .navbar ul {
+    display: flex;
+    align-items: center;
+    height: 100%; }
+  .navbar ul > li {
+    display: inline-block; }
+  .navbar ul > li > a {
+    height: 100%;
+    padding: 20px;
+    cursor: pointer; }
+    .navbar ul > li > a:hover {
+      background: #71c5e7; }
+
+.navbar__logo {
+  font-size: 1.5rem;
+  display: flex;
+  float: left;
+  height: 100%;
+  align-items: center;
+  padding: 0 20px; }
+  .navbar__logo a {
+    cursor: pointer; }
+
+html {
+  font-family: sans-serif; }
+
+h1 {
+  font-size: 4rem;
+  color: green; }
+
+body {
+  background: #ccc; }
+
+main {
+  padding-top: 60px; }
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto; }
+
+
+/*# sourceMappingURL=/main.e5703e5d.css.map */

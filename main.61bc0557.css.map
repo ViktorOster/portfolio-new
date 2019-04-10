@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.scss","variables.scss"],"names":[],"mappings":"AAEA,GACI,YCHiB","file":"main.61bc0557.css","sourceRoot":"..","sourcesContent":["@import \"./variables.scss\";\r\n\r\nh1 {\r\n    color: $c-background;\r\n}","$c-background: maroon;"]}

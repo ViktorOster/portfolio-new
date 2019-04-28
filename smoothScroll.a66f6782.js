@@ -117,114 +117,51 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../scripts/index.js":[function(require,module,exports) {
-var cardDescriptions = document.querySelectorAll(".card__description");
-var cardDescriptionsHidden = document.querySelectorAll(".card__description-hidden");
-var showMoreButtons = document.querySelectorAll(".card__show-more");
-var navbar = document.querySelector(".navbar__container");
-var illustration = document.querySelector(".hero__illustration-container");
-var heroText = document.querySelector(".hero__text-container");
-var projectCards = document.querySelectorAll(".card");
-var showCardsButton = document.querySelector(".show-cards-button");
-var buttonViewProjects = document.querySelector('[data-js="scroll-to-projects"]');
-var navbarProjectsLink = document.querySelector('[data-js="nav-projects"]');
-var navbarContactLink = document.querySelector('[data-js="nav-contact"]'); //scroll animation library
+})({"../scripts/smoothScroll.js":[function(require,module,exports) {
+function SmoothScroll(target, speed, smooth) {
+  if (target == document) target = document.documentElement || document.body.parentNode || document.body; // cross browser support for document scrolling
 
-var scrollOut = ScrollOut({
-  threshold: .3,
-  once: true
-});
-navbarProjectsLink.addEventListener("click", function () {
-  window.scrollTo({
-    top: 600,
-    left: 0,
-    behavior: 'smooth'
+  var moving = false;
+  var pos = target.scrollTop;
+  target.addEventListener('mousewheel', scrolled, {
+    passive: false
   });
-});
-navbarContactLink.addEventListener("click", function () {
-  window.scrollTo({
-    top: document.body.scrollHeight - 400,
-    left: 0,
-    behavior: 'smooth'
+  target.addEventListener('DOMMouseScroll', scrolled, {
+    passive: false
   });
-});
-buttonViewProjects.addEventListener("click", function () {
-  window.scrollTo({
-    top: 600,
-    left: 0,
-    behavior: 'smooth'
-  });
-});
-showMoreButtons.forEach(function (btn, i) {
-  btn.addEventListener("click", function (e) {
-    if (btn.textContent === "Read More") {
-      //set height of description to the expanded description height
-      cardDescriptions[i].style.height = cardDescriptionsHidden[i].clientHeight + 20 + "px"; //user expanded description, so dont hide it when new element descriptions are collapsed
 
-      cardDescriptions[i].isShowing = true;
-      btn.textContent = "Show Less";
-    } else {
-      cardDescriptions[i].style.height = "1.5em";
-      btn.textContent = "Read More";
-    }
-  });
-}); //parallax effect on illustration and navbar change on scroll
+  function scrolled(e) {
+    e.preventDefault(); // disable default scrolling
 
-window.addEventListener("scroll", function () {
-  illustration.style.marginTop = (320 - window.pageYOffset / 3).toString() + "px";
+    var delta = normalizeWheelDelta(e);
+    pos += -delta * speed;
+    pos = Math.max(0, Math.min(pos, target.scrollHeight - target.clientHeight)); // limit scrolling
 
-  if (window.pageYOffset > 100 && window.pageYOffset <= 560) {
-    illustration.style.visibility = "visible";
-
-    if (!navbar.classList.contains("is-scrolling")) {
-      navbar.classList += " is-scrolling";
-    }
+    if (!moving) update();
   }
 
-  if (window.pageYOffset <= 100) {
-    navbar.classList.remove("is-scrolling");
-  }
-}); //---show more button code--
-//if there are more than 3 cards, show more button appears
+  function normalizeWheelDelta(e) {
+    if (e.detail) {
+      if (e.wheelDelta) return e.wheelDelta / e.detail / 40 * (e.detail > 0 ? 1 : -1); // Opera
+      else return -e.detail / 3; // Firefox
+    } else return e.wheelDelta / 120; // IE,Safari,Chrome
 
-if (projectCards.length > 3) {
-  showCardsButton.style.display = "inline-block";
-  projectCards.forEach(function (card, i) {
-    if (i > 3) {
-      projectCards[i].style.display = "none";
-    }
-  });
-} else {
-  showCardsButton.style.display = "none";
+  }
+
+  function update() {
+    moving = true;
+    var delta = (pos - target.scrollTop) / smooth;
+    target.scrollTop += delta;
+    if (Math.abs(delta) > 0.5) requestFrame(update);else moving = false;
+  }
+
+  var requestFrame = function () {
+    // requestAnimationFrame cross browser
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (func) {
+      window.setTimeout(func, 1000 / 50);
+    };
+  }();
 }
-
-showCardsButton.addEventListener("click", function () {
-  projectCards.forEach(function (card, i) {
-    if (i > 2) {
-      projectCards[i].style.display = "grid";
-    }
-
-    showCardsButton.style.display = "none";
-  }); //update scrollout to animate newly shown cards
-
-  scrollOut.update();
-}); //make svg mimic object-fit cover on small screens
-
-var projVector = document.querySelector(".projects__vector");
-
-window.onload = function () {
-  if (window.innerWidth < 900) {
-    projVector.setAttribute("preserveAspectRatio", "xMinYMid slice");
-  }
-};
-
-window.onresize = function () {
-  if (window.innerWidth < 900) {
-    projVector.setAttribute("preserveAspectRatio", "xMinYMid slice");
-  } else {
-    projVector.setAttribute("preserveAspectRatio", "none");
-  }
-};
 },{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -253,7 +190,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49576" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -428,5 +365,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../scripts/index.js"], null)
-//# sourceMappingURL=/scripts.3cddadf4.js.map
+},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../scripts/smoothScroll.js"], null)
+//# sourceMappingURL=/smoothScroll.a66f6782.js.map

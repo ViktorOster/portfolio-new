@@ -213,6 +213,8 @@ showCardsButton.addEventListener("click", function () {
 var projVector = document.querySelector(".projects__vector");
 
 window.onload = function () {
+  projVector.setAttribute("height", "100%");
+
   if (window.innerWidth < 900) {
     projVector.setAttribute("preserveAspectRatio", "xMinYMid slice");
   }
@@ -253,7 +255,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63855" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64194" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
